@@ -6,6 +6,8 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
 } from 'firebase/auth'
 
 // we need this to implement storing users inside cloud store
@@ -78,3 +80,10 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return
   return await signInWithEmailAndPassword(auth, email, password)
 }
+
+export const signOutUser = async () => await signOut(auth)
+
+
+export const onAuthStateChangedListener = (callback) =>
+// whenever auth changes onAuthStateChanged will invoke out called. (on signin/signout)
+  onAuthStateChanged(auth, callback)
